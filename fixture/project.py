@@ -69,13 +69,17 @@ class ProjectHelper:
         # select first group
         #self.select_group_by_id(id)
         # submit deletion
-        wd.find_element_by_name("delete").click()
+        wd.find_element_by_xpath("//input[@value='Delete Project']").click()
+        wd.find_element_by_xpath("//input[@value='Delete Project']").click()
         #self.return_to_groups_page()
         #self.project_cache = None
+
+
 
     def select_project_by_id(self, id):
         wd = self.app.wd
         # Select first group
-        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+        # wd.find_element_by_css_selector("input[value='%s']" % id).click()
+        wd.find_element_by_link_text("nameN").click()
 
     project_cache = None
