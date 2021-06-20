@@ -5,30 +5,62 @@ class ProjectHelper:
     def __init__(self, app):
         self.app = app
 
+    def manage_page(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("Manage").click()
 
-def open_control_page(self):
-    wd = self.app.wd
-    wd.find_element_by_xpath("//div[@id='sidebar']/ul/li[6]/a/i").click()
+    def manage_project_page(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("Manage Projects").click()
+
+    def create_project(self, new_project_data):
+        wd = self.app.wd
+        self.manage_page()
+        self.manage_project_page()
+        # Click new project
+        wd.find_element_by_xpath("//input[@value='Create New Project']").click()
+        # Fill project form
+        self.fill_project_form(new_project_data)
+        # submit create
+        wd.find_element_by_xpath("//input[@value='Add Project']").click()
+        #self.project_cache = None
+
+    def fill_project_form(self, project):
+        wd = self.app.wd
+        self.change_field_value("name", project.name)
+        #self.change_field_value("status", project.status)
+        #self.change_field_value("inherit_global", project.inherit_global)
+        #self.change_field_value("view_state", project.view_state)
+        self.change_field_value("description", project.description)
+
+    def change_field_value(self, field_name, text):
+        wd = self.app.wd
+        if text is not None:
+            wd.find_element_by_name(field_name).click()
+            wd.find_element_by_name(field_name).clear()
+            wd.find_element_by_name(field_name).send_keys(text)
 
 
+    def fill_project_form1(self):
+        wd = self.app.wd
+        wd.find_element_by_name("name").click()
+        wd.find_element_by_name("name").clear()
+        wd.find_element_by_name("name").send_keys("test")
 
-driver.find_element_by_link_text(u"Управление проектами").click()
-driver.find_element_by_xpath("//button[@type='submit']").click()
-driver.find_element_by_id("project-name").click()
-driver.find_element_by_id("project-name").clear()
-driver.find_element_by_id("project-name").send_keys("test")
-driver.find_element_by_id("project-status").click()
-Select(driver.find_element_by_id("project-status")).select_by_visible_text(u"выпущен")
-driver.find_element_by_xpath("//option[@value='30']").click()
-driver.find_element_by_xpath(
-    "//form[@id='manage-project-create-form']/div/div[2]/div/div/table/tbody/tr[3]/td[2]/label/span").click()
-driver.find_element_by_id("project-view-state").click()
-Select(driver.find_element_by_id("project-view-state")).select_by_visible_text(u"приватный")
-driver.find_element_by_xpath("//select[@id='project-view-state']/option[2]").click()
-driver.find_element_by_id("project-description").click()
-driver.find_element_by_id("project-description").clear()
-driver.find_element_by_id("project-description").send_keys("test test")
-driver.find_element_by_xpath(u"//input[@value='Добавить проект']").click()
+        wd.find_element_by_name("status").click()
+        Select(wd.find_element_by_name("status")).select_by_visible_text("release")
+
+        wd.find_element_by_xpath("//option[@value='30']").click()
+        wd.find_element_by_name("inherit_global").click()
+
+        wd.find_element_by_name("view_state").click()
+        Select(wd.find_element_by_name("view_state")).select_by_visible_text("private")
+        wd.find_element_by_xpath(
+            "(.//*[normalize-space(text()) and normalize-space(.)='View Status'])[1]/following::option[2]").click()
+
+        wd.find_element_by_name("description").click()
+        wd.find_element_by_name("description").clear()
+        wd.find_element_by_name("description").send_keys("test test test")
 
     def open_groups_page(self):
         wd = self.app.wd
@@ -75,18 +107,7 @@ driver.find_element_by_xpath(u"//input[@value='Добавить проект']")
         self.return_to_groups_page()
         self.group_cache = None
 
-    def fill_group_form(self, group):
-        wd = self.app.wd
-        self.change_field_value("group_name", group.name)
-        self.change_field_value("group_header", group.header)
-        self.change_field_value("group_footer", group.footer)
 
-    def change_field_value(self, field_name, text):
-        wd = self.app.wd
-        if text is not None:
-            wd.find_element_by_name(field_name).click()
-            wd.find_element_by_name(field_name).clear()
-            wd.find_element_by_name(field_name).send_keys(text)
 
     def select_first_group(self):
         self.select_group_by_index(0)

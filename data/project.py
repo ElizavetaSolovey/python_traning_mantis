@@ -2,7 +2,7 @@ from model.project import Project
 
 
 testdata = [
-    Project(projectname="test", projectstatus="выпущен", projectinheritglobal=True,
-                 projectviewstate="приватный", projectdescription="test test test")
+    Project(name="test", status="release", enabled="checked",
+                 inherit_global="checked", view_state="private", description="test test test")
 ]
 

@@ -1,18 +1,18 @@
 from sys import maxsize
 
-
 class Project:
-    def __init__(self, projectname=None, projectstatus=None, projectinheritglobal=None,
-                 projectviewstate=None, projectdescription=None, id=None):
-        self.projectname = projectname
-        self.projectstatus = projectstatus
-        self.projectinheritglobal = projectinheritglobal
-        self.projectviewstate = projectviewstate
-        self.projectdescription = projectdescription
+    def __init__(self, name=None, status=None, enabled=None, inherit_global=None,
+                 view_state=None, description=None, id=None):
+        self.name = name
+        self.status = status
+        self.enabled = enabled
+        self.inherit_global = inherit_global
+        self.view_state = view_state
+        self.description = description
         self.id = id
 
     def __repr__(self):
-        return "%s:%s:%s:%s" % (self.id, self.name, self.header, self.footer)
+        return "%s:%s:%s" % (self.id, self.name, self.description)
 
     def __eq__(self, other):
         return (self.id is None or other.id is None or self.id == other.id) and self.name == other.name
