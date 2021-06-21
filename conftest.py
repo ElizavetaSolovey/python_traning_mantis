@@ -57,17 +57,17 @@ def install_server_configuration(host, username, password):
     with ftputil.FTPHost(host, username, password) as remote:
         if remote.path.isfile("config_inc.php.bak"):
             remote.remove("config_inc.php.bak")
-        if remote.path.isfile("config_inc.php.sample"):
-            remote.rename("config_inc.php.sample", "config_inc.php.bak")
-        remote.upload(os.path.join(os.path.dirname(__file__), "resources/config_inc.php.sample"), "config_inc.php.sample")
+        if remote.path.isfile("config_inc.php"):
+            remote.rename("config_inc.php", "config_inc.php.bak")
+        remote.upload(os.path.join(os.path.dirname(__file__), "resources/config_inc.php"), "config_inc.php")
 
 
 def restore_server_configuration(host, username, password):
     with ftputil.FTPHost(host, username, password) as remote:
         if remote.path.isfile("config_inc.php.bak"):
-            if remote.path.isfile("config_inc.php.sample"):
-                remote.remove("config_inc.php.sample")
-            remote.rename("config_inc.php.bak", "config_inc.php.sample")
+            if remote.path.isfile("config_inc.php"):
+                remote.remove("config_inc.php")
+            remote.rename("config_inc.php.bak", "config_inc.php")
 
 
 @pytest.fixture(scope="session", autouse=True)
