@@ -54,15 +54,23 @@ class ProjectHelper:
         self.manage_page()
         self.manage_project_page()
         # Select project
-        self.select_progect_by_id(name)
+        self.select_project_by_id(name)
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete Project']").click()
         wd.find_element_by_xpath("//input[@value='Delete Project']").click()
         self.project_cache = None
 
-    def select_progect_by_id(self, id):
+    def select_project_by_id(self, id):
         wd = self.app.wd
         wd.find_element_by_xpath(f"//*[@href='manage_proj_edit_page.php?project_id={id}']").click()
 
     project_cache = None
+
+    def is_project_with_name_present(self, old_projects, project):
+        k = 0
+        for i in range(len(old_projects)):
+            if old_projects[i].name == project.name:
+                k = k + 1
+        if k != 1:
+            return True
 
