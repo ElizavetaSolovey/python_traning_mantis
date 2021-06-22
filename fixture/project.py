@@ -73,4 +73,3 @@ class ProjectHelper:
                 k = k + 1
         if k != 1:
             return True
-
